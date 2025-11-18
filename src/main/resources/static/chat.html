@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8"/>
+    <title>실시간 채팅 서비스</title>
+
+    <!-- 스타일 -->
+    <link rel="stylesheet" href="/css/chat.css"/>
+
+    <!-- SockJS & STOMP -->
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+</head>
+<body>
+<div class="app">
+    <!-- 왼쪽: 방 목록 -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h1>채팅방 목록</h1>
+            <small>실시간 채팅 테스트 클라이언트</small>
+        </div>
+        <div class="room-create">
+            <button onclick="openCreateRoomModal()">채팅방 생성</button>
+        </div>
+        <div class="room-list" id="roomList">
+            <!-- 방 목록 렌더링 -->
+        </div>
+    </div>
+
+    <!-- 오른쪽: 채팅 화면 -->
+    <div class="chat">
+        <div class="chat-header">
+            <div class="chat-header-room" id="roomTitle">
+                채팅방을 선택해주세요
+            </div>
+            <div class="chat-header-right">
+                <span class="status-bar">
+                    <span id="statusDot" class="status-dot status-off"></span>
+                    <span id="connectionStatusText">미연결</span>
+                </span>
+                <input id="nickname" placeholder="닉네임" value="테스터1"/>
+                <button onclick="connect()">서버 연결</button>
+                <button onclick="leaveRoom()">나가기</button>
+            </div>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+            <!-- 메시지 렌더링 -->
+        </div>
+
+        <div class="chat-input">
+            <input id="messageInput" type="text" placeholder="메시지를 입력하세요"
+                   onkeydown="if(event.key==='Enter'){sendMessage();}"/>
+            <button onclick="sendMessage()">전송</button>
+        </div>
+    </div>
+</div>
+
+<!-- 채팅방 생성 모달 -->
+<div class="modal" id="createRoomModal">
+    <div class="modal-content">
+        <h2>새 채팅방 생성</h2>
+        <input id="modalRoomName" type="text" placeholder="채팅방 이름을 입력하세요"/>
+        <div class="modal-actions">
+            <button class="btn-cancel" onclick="closeCreateRoomModal()">취소</button>
+            <button class="btn-primary" onclick="confirmCreateRoom()">생성</button>
+        </div>
+    </div>
+</div>
+
+<script src="/js/chat.js"></script>
+</body>
+</html>
